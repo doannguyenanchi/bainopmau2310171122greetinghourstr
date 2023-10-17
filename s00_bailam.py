@@ -50,5 +50,29 @@ greeting('2100')             | Good evening!          | 14
 
 #region bailam
 def greeting(hour_str):
-  return 'todo'
+  def get_24hformat_hour(hour_str):
+    import re
+    hour_str = ''.join(hour_str)
+    hour_str = hour_str.lower()
+
+    if 'am' in hour_str:
+      return int(''.join(re.findall('\d+', hour_str[0: 2])))
+    elif 'pm' in hour_str:
+      h = int(''.join(re.findall('\d+', hour_str[0: 2])))
+      return h + 12
+    elif ':' in hour_str:
+      return int(hour_str.split(':')[0])
+    else:
+      return int(''.join(re.findall('\d+', hour_str[0: 2])))
+
+
+  if get_24hformat_hour(hour_str) <= 11 and get_24hformat_hour(hour_str) >= 0:
+    return 'Good morning!'
+  if get_24hformat_hour(hour_str) <= 17 and get_24hformat_hour(hour_str) > 11:
+    return 'Good afternoon!'
+  if get_24hformat_hour(hour_str) <= 23 and get_24hformat_hour(hour_str) > 17:
+    return 'Good evening!'
+
+  
+
 #endregion bailam
